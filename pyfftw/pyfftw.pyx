@@ -269,13 +269,13 @@ cdef fftw_generic_plan_guru * _build_planner_list():
 
     planners[0] = <fftw_generic_plan_guru>&_fftw_plan_guru_dft
     planners[1] = <fftw_generic_plan_guru>&_fftwf_plan_guru_dft
-    planners[2] = <fftw_generic_plan_guru>&_fftwl_plan_guru_dft
+#    planners[2] = <fftw_generic_plan_guru>&_fftwl_plan_guru_dft
     planners[3] = <fftw_generic_plan_guru>&_fftw_plan_guru_dft_r2c
     planners[4] = <fftw_generic_plan_guru>&_fftwf_plan_guru_dft_r2c
-    planners[5] = <fftw_generic_plan_guru>&_fftwl_plan_guru_dft_r2c
+#    planners[5] = <fftw_generic_plan_guru>&_fftwl_plan_guru_dft_r2c
     planners[6] = <fftw_generic_plan_guru>&_fftw_plan_guru_dft_c2r
     planners[7] = <fftw_generic_plan_guru>&_fftwf_plan_guru_dft_c2r
-    planners[8] = <fftw_generic_plan_guru>&_fftwl_plan_guru_dft_c2r
+#    planners[8] = <fftw_generic_plan_guru>&_fftwl_plan_guru_dft_c2r
 
 # Executor table (of size the number of executors)
 cdef fftw_generic_execute executors[9]
@@ -284,13 +284,13 @@ cdef fftw_generic_execute * _build_executor_list():
 
     executors[0] = <fftw_generic_execute>&_fftw_execute_dft
     executors[1] = <fftw_generic_execute>&_fftwf_execute_dft
-    executors[2] = <fftw_generic_execute>&_fftwl_execute_dft
+#    executors[2] = <fftw_generic_execute>&_fftwl_execute_dft
     executors[3] = <fftw_generic_execute>&_fftw_execute_dft_r2c
     executors[4] = <fftw_generic_execute>&_fftwf_execute_dft_r2c
-    executors[5] = <fftw_generic_execute>&_fftwl_execute_dft_r2c
+#    executors[5] = <fftw_generic_execute>&_fftwl_execute_dft_r2c
     executors[6] = <fftw_generic_execute>&_fftw_execute_dft_c2r
     executors[7] = <fftw_generic_execute>&_fftwf_execute_dft_c2r
-    executors[8] = <fftw_generic_execute>&_fftwl_execute_dft_c2r
+#    executors[8] = <fftw_generic_execute>&_fftwl_execute_dft_c2r
 
 # Destroyer table (of size the number of destroyers)
 cdef fftw_generic_destroy_plan destroyers[3]
@@ -299,7 +299,7 @@ cdef fftw_generic_destroy_plan * _build_destroyer_list():
 
     destroyers[0] = <fftw_generic_destroy_plan>&_fftw_destroy_plan
     destroyers[1] = <fftw_generic_destroy_plan>&_fftwf_destroy_plan
-    destroyers[2] = <fftw_generic_destroy_plan>&_fftwl_destroy_plan
+#    destroyers[2] = <fftw_generic_destroy_plan>&_fftwl_destroy_plan
 
 
 # nthreads plan setters table
@@ -310,8 +310,8 @@ cdef fftw_generic_plan_with_nthreads * _build_nthreads_plan_setters_list():
             <fftw_generic_plan_with_nthreads>&fftw_plan_with_nthreads)
     nthreads_plan_setters[1] = (
             <fftw_generic_plan_with_nthreads>&fftwf_plan_with_nthreads)
-    nthreads_plan_setters[2] = (
-            <fftw_generic_plan_with_nthreads>&fftwl_plan_with_nthreads)
+#    nthreads_plan_setters[2] = (
+#            <fftw_generic_plan_with_nthreads>&fftwl_plan_with_nthreads)
 
 # Set planner timelimits
 cdef fftw_generic_set_timelimit set_timelimit_funcs[3]
@@ -321,8 +321,8 @@ cdef fftw_generic_set_timelimit * _build_set_timelimit_funcs_list():
             <fftw_generic_set_timelimit>&fftw_set_timelimit)
     set_timelimit_funcs[1] = (
             <fftw_generic_set_timelimit>&fftwf_set_timelimit)
-    set_timelimit_funcs[2] = (
-            <fftw_generic_set_timelimit>&fftwl_set_timelimit)
+#    set_timelimit_funcs[2] = (
+#            <fftw_generic_set_timelimit>&fftwl_set_timelimit)
 
 
 # Data validators table
@@ -506,16 +506,16 @@ _build_set_timelimit_funcs_list()
 
 fftw_init_threads()
 fftwf_init_threads()
-fftwl_init_threads()
+#fftwl_init_threads()
 
 # Set the cleanup routine
 cdef void _cleanup():
     fftw_cleanup()
     fftwf_cleanup()
-    fftwl_cleanup()
+#    fftwl_cleanup()
     fftw_cleanup_threads()
     fftwf_cleanup_threads()
-    fftwl_cleanup_threads()
+#    fftwl_cleanup_threads()
 
 Py_AtExit(_cleanup)
 
@@ -1608,7 +1608,7 @@ def export_wisdom():
 
     fftw_export_wisdom(&count_char, <void *>&counter)
     fftwf_export_wisdom(&count_char, <void *>&counterf)
-    fftwl_export_wisdom(&count_char, <void *>&counterl)
+#    fftwl_export_wisdom(&count_char, <void *>&counterl)
 
     cdef char* c_wisdom = <char *>malloc(sizeof(char)*(counter + 1))
     cdef char* c_wisdomf = <char *>malloc(sizeof(char)*(counterf + 1))
@@ -1624,7 +1624,7 @@ def export_wisdom():
 
     fftw_export_wisdom(&write_char_to_string, <void *>&c_wisdom_ptr)
     fftwf_export_wisdom(&write_char_to_string, <void *>&c_wisdomf_ptr)
-    fftwl_export_wisdom(&write_char_to_string, <void *>&c_wisdoml_ptr)
+#    fftwl_export_wisdom(&write_char_to_string, <void *>&c_wisdoml_ptr)
 
     # Write the last byte as the null byte
     c_wisdom[counter] = 0
@@ -1668,7 +1668,8 @@ def import_wisdom(wisdom):
 
     cdef bint success = fftw_import_wisdom_from_string(c_wisdom)
     cdef bint successf = fftwf_import_wisdom_from_string(c_wisdomf)
-    cdef bint successl = fftwl_import_wisdom_from_string(c_wisdoml)
+#    cdef bint successl = fftwl_import_wisdom_from_string(c_wisdoml)
+    cdef bint successl = 0
 
     return (success, successf, successl)
 
@@ -1766,6 +1767,6 @@ def forget_wisdom():
     '''
     fftw_forget_wisdom()
     fftwf_forget_wisdom()
-    fftwl_forget_wisdom()
+    #fftwl_forget_wisdom()
 
 

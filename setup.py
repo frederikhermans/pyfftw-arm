@@ -79,8 +79,8 @@ if get_build_platform() in ('win32', 'win-amd64'):
     package_data['pyfftw'] = [
             'libfftw3-3.dll', 'libfftw3l-3.dll', 'libfftw3f-3.dll']
 else:
-    libraries = ['fftw3', 'fftw3f', 'fftw3l', 'fftw3_threads', 
-            'fftw3f_threads', 'fftw3l_threads']
+    libraries = ['fftw3', 'fftw3f', 'fftw3_threads',
+            'fftw3f_threads' ]
 
 class custom_build_ext(build_ext):
     def finalize_options(self):
