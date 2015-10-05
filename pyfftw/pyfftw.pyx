@@ -106,10 +106,11 @@ cdef void* _fftwl_plan_guru_dft(
             void *_in, void *_out,
             int sign, int flags):
 
-    return <void *>fftwl_plan_guru_dft(rank, dims,
-            howmany_rank, howmany_dims,
-            <clongdouble *>_in, <clongdouble *>_out,
-            sign, flags)
+     return NULL
+#    return <void *>fftwl_plan_guru_dft(rank, dims,
+#            howmany_rank, howmany_dims,
+#            <clongdouble *>_in, <clongdouble *>_out,
+#            sign, flags)
 
 # real to complex double precision
 cdef void* _fftw_plan_guru_dft_r2c(
@@ -142,10 +143,11 @@ cdef void* _fftwl_plan_guru_dft_r2c(
             void *_in, void *_out,
             int sign, int flags):
 
-    return <void *>fftwl_plan_guru_dft_r2c(rank, dims,
-            howmany_rank, howmany_dims,
-            <long double *>_in, <clongdouble *>_out,
-            flags)
+    return NULL
+#    return <void *>fftwl_plan_guru_dft_r2c(rank, dims,
+#            howmany_rank, howmany_dims,
+#            <long double *>_in, <clongdouble *>_out,
+#            flags)
 
 # complex to real double precision
 cdef void* _fftw_plan_guru_dft_c2r(
@@ -178,10 +180,11 @@ cdef void* _fftwl_plan_guru_dft_c2r(
             void *_in, void *_out,
             int sign, int flags):
 
-    return <void *>fftwl_plan_guru_dft_c2r(rank, dims,
-            howmany_rank, howmany_dims,
-            <clongdouble *>_in, <long double *>_out,
-            flags)
+    return NULL
+#    return <void *>fftwl_plan_guru_dft_c2r(rank, dims,
+#            howmany_rank, howmany_dims,
+#            <clongdouble *>_in, <long double *>_out,
+#            flags)
 
 #    Executors
 #    =========
@@ -201,8 +204,9 @@ cdef void _fftwf_execute_dft(void *_plan, void *_in, void *_out) nogil:
 # Complex long double precision
 cdef void _fftwl_execute_dft(void *_plan, void *_in, void *_out) nogil:
 
-    fftwl_execute_dft(<fftwl_plan>_plan, 
-            <clongdouble *>_in, <clongdouble *>_out)
+    return
+#    fftwl_execute_dft(<fftwl_plan>_plan, 
+#            <clongdouble *>_in, <clongdouble *>_out)
 
 # real to complex double precision
 cdef void _fftw_execute_dft_r2c(void *_plan, void *_in, void *_out) nogil:
@@ -218,9 +222,9 @@ cdef void _fftwf_execute_dft_r2c(void *_plan, void *_in, void *_out) nogil:
 
 # real to complex long double precision
 cdef void _fftwl_execute_dft_r2c(void *_plan, void *_in, void *_out) nogil:
-
-    fftwl_execute_dft_r2c(<fftwl_plan>_plan, 
-            <long double *>_in, <clongdouble *>_out)
+    return
+#    fftwl_execute_dft_r2c(<fftwl_plan>_plan, 
+#            <long double *>_in, <clongdouble *>_out)
 
 # complex to real double precision
 cdef void _fftw_execute_dft_c2r(void *_plan, void *_in, void *_out) nogil:
@@ -237,8 +241,9 @@ cdef void _fftwf_execute_dft_c2r(void *_plan, void *_in, void *_out) nogil:
 # complex to real long double precision
 cdef void _fftwl_execute_dft_c2r(void *_plan, void *_in, void *_out) nogil:
 
-    fftwl_execute_dft_c2r(<fftwl_plan>_plan, 
-            <clongdouble *>_in, <long double *>_out)
+    return
+#    fftwl_execute_dft_c2r(<fftwl_plan>_plan, 
+#            <clongdouble *>_in, <long double *>_out)
 
 #    Destroyers
 #    ==========
@@ -256,7 +261,8 @@ cdef void _fftwf_destroy_plan(void *_plan):
 # Long double precision
 cdef void _fftwl_destroy_plan(void *_plan):
 
-    fftwl_destroy_plan(<fftwl_plan>_plan)
+    return
+#    fftwl_destroy_plan(<fftwl_plan>_plan)
 
 
 # Function lookup tables
@@ -658,14 +664,14 @@ cdef class FFTW:
     cdef int64_t *_axes
     cdef int64_t *_not_axes
 
-    cdef int64_t _N
+    cdef int64_t _Z
     def _get_N(self):
         '''
         The product of the lengths of the DFT over all DFT axes.
         1/N is the normalisation constant. For any input array A, 
         and for any set of axes, 1/N * ifft(fft(A)) = A
         '''
-        return self._N
+        return self._Z
 
     N = property(_get_N)
 
@@ -970,7 +976,7 @@ cdef class FFTW:
             else:
                 total_N *= self._output_shape[self._axes[n]]
 
-        self._N = total_N
+        self._Z = total_N
         self._normalisation_scaling = 1/float(self.N)
 
         # Now we can validate the array shapes
